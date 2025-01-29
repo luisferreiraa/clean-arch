@@ -1,0 +1,19 @@
+[tool.poetry]
+name = "clean-arch"
+version = "0.1.0"
+description = ""
+authors = ["luisferreiraa <luis.c.ferreira.prt_a@msft.cesae.pt>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.12"
+sqlalchemy = "^2.0.37"
+pydantic = "^2.10.6"
+fastapi = "^0.115.7"
+uvicorn = {extras = ["standard"], version = "^0.34.0"}
+email-validator = "^2.2.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
