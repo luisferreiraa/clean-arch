@@ -1,5 +1,4 @@
 # application/use_cases/user.py
-from typing import Callable
 
 from clean_arch.domain.entities.user import User
 from clean_arch.domain.exceptions.user import UserNotFoundError, EmailAlreadyExistsError

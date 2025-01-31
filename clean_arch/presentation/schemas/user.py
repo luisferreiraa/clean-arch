@@ -1,6 +1,9 @@
-from typing import Optional
+# presentation/schemas/user.py
+from typing import Optional, List
 
 from pydantic import BaseModel, EmailStr
+
+from clean_arch.presentation.schemas.post import PostResponse
 
 
 class UserBase(BaseModel):
@@ -16,6 +19,7 @@ class UserCreate(UserBase):
 class UserResponse(UserBase):
     id: int
     disabled: bool
+    posts: Optional[List[PostResponse]] = []
 
 
 class UserUpdate(BaseModel):

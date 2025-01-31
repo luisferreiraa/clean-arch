@@ -1,5 +1,7 @@
 # infrastructure/repositories/user.py
-from sqlalchemy.orm import Session
+from sqlalchemy.orm import Session, joinedload
+
+from clean_arch.domain.entities.post import Post
 from clean_arch.domain.entities.user import User
 from clean_arch.application.repositories.interfaces.user import IUserRepository
 from clean_arch.domain.exceptions.user import UserNotFoundError
@@ -31,14 +33,20 @@ class UserRepository(IUserRepository):
 
     # Infrastructure -> Domain (Ler da Base de Dados)
     def get_by_id(self, user_id: int) -> User | None:
-        db_user = self.db.query(UserModel).filter(UserModel.id == user_id).first()
+        db_user = (self.db.query(UserModel)
+                   .options(joinedload(UserModel.posts))
+                   .filter(UserModel.id == user_id)
+                   .first())
+        # print(db_user.posts)
+        # print(db_user.posts[0].__dict__)
         if db_user:
             return User(
                 id=db_user.id,
                 username=db_user.username,
                 email=db_user.email,
                 full_name=db_user.full_name,
-                disabled=db_user.disabled
+                disabled=db_user.disabled,
+                posts=db_user.posts
             )
         return None
 
